@@ -23,7 +23,7 @@ class TestCourierLogin:
     ])
     def test_courier_login_nonexistent_data_not_found(self, nonexistent_credentials):
         response = requests.post(Urls.URL_courier_login, data=nonexistent_credentials)
-        assert response.status_code == 404 and response.json() == {'message': 'Учетная запись не найдена'}
+        assert response.status_code == 404 and response.json() == {"code":404,"message":"Учетная запись не найдена"}
 
     @allure.title('Проверка получения ошибки аутентификации курьера с пустым полем логина или пароля')
     @allure.description('В тест по очереди передаются наборы данных с пустым логином или паролем. '
@@ -34,4 +34,4 @@ class TestCourierLogin:
     ])
     def test_courier_login_empty_credentials_bad_request(self, empty_credentials):
         response = requests.post(Urls.URL_courier_login, data=empty_credentials)
-        assert response.status_code == 400 and response.json() == {'message': 'Недостаточно данных для входа'}
+        assert response.status_code == 400 and response.json() == {"code":400,"message":"Недостаточно данных для входа"}

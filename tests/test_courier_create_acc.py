@@ -28,7 +28,7 @@ class TestCourierCreate:
             'firstName': create_random_firstname()
         }
         response = requests.post(Urls.URL_courier_create, data=payload)
-        assert response.status_code == 409 and response.json() == {'message': 'Этот логин уже используется'}
+        assert response.status_code == 409 and response.json() == {"code":409,"message":"Этот логин уже используется. Попробуйте другой."}
 
     @allure.title('Проверка получения ошибки при создании курьера с незаполненными обязательными полями')
     @allure.description('В тест по очереди передаются наборы данных с пустым логином или паролем. '
@@ -39,5 +39,4 @@ class TestCourierCreate:
     ])
     def test_create_courier_account_with_empty_required_fields(self, empty_credentials):
         response = requests.post(Urls.URL_courier_create, data=empty_credentials)
-        assert response.status_code == 400 and response.json() == {'message': 'Недостаточно данных для создания '
-                                                                              'учетной записи'}
+        assert response.status_code == 400 and response.json() == {"code":400,"message":"Недостаточно данных для создания учетной записи"}
